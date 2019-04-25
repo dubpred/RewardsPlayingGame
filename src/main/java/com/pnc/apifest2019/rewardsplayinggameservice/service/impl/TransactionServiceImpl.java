@@ -129,7 +129,13 @@ public class TransactionServiceImpl implements TransactionService {
             switch (xpTierFormula){
                 case "Exponential":
                     for(int i = 0; i < maxTier; i++) {
-                        xpToLvlList.add((long)(Math.pow(i,3)));
+                        xpToLvlList.add((long)1000);
+                        xpToLvlList.add((long)3000);
+                        xpToLvlList.add((long)9000);
+                        xpToLvlList.add((long)27000);
+                        xpToLvlList.add((long)100000);
+
+
                     }
                     break;
                 case "Linear":
