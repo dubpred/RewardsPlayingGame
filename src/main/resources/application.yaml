@@ -3,9 +3,9 @@ spring:
 
   datasource:
     platform: mysql
-    url: jdbc:mysql://localhost:3306/rpg?useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password: admin
+    url: jdbc:mysql://rpgdb1.mysql.database.azure.com/rpg?useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: rpgadmin1@rpgdb1
+    password: bryceyoung1!
 
 
   jpa:

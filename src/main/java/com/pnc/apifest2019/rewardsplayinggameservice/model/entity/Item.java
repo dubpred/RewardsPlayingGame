@@ -59,7 +59,7 @@ public class Item {
     //------------------------------------------- End of Mappings -------------------------------------------------------
 
     public void init(){
-        this.tier = 1;
+        this.tier = 0;
         this.xpBalance = 0;
     }
 
