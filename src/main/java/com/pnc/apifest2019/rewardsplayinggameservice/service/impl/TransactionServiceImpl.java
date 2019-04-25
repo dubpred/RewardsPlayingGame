@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.InternationalFormatter;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -116,4 +119,45 @@ public class TransactionServiceImpl implements TransactionService {
         } else {
             throw new RuntimeException();
         }
-    }}
+    }
+
+    private boolean checkForLevelUp(int currentXp, int currentTier, int maxTier, String xpTierFormula){
+        List<Integer> xpToLvlList = new ArrayList<Integer>();
+
+
+        //depending on leveling Algorithm
+            switch (xpTierFormula){
+                case "Runescape":
+                    for(int i = 0; i < maxTier; i++) {
+                        xpToLvlList.add((int) (i + 300 * Math.pow(2, i / 7)) / 4);
+                    }
+                    break;
+                case "Linear":
+                    for(int i = 0; i < maxTier; i++) {
+                        xpToLvlList.add(i * 250);
+                    }
+                    break;
+            }
+
+
+
+            //lower bound of current level
+            int lower = xpToLvlList.get(currentTier);
+            //upper bound of current level
+            int upper = xpToLvlList.get(currentTier +1);
+
+            //if current xp exceeds the upper limit of the current level you have leveled up
+            if(currentXp>upper){
+                return true;
+            }else{
+                return false;
+            }
+
+
+
+    }
+
+
+
+
+}
