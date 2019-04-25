@@ -1,5 +1,7 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.model.entity;
 
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.TransactionEarnRateDto;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;

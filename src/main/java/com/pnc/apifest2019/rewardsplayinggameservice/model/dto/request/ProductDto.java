@@ -1,5 +1,7 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request;
 
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Product;
+
 import javax.validation.constraints.Min;
 import java.util.List;
 

@@ -1,5 +1,8 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.controller;
 
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.UserDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserResponseDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

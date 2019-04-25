@@ -1,5 +1,6 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.model.entity;
 
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.TransactionDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 

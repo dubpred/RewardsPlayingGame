@@ -1,10 +1,22 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.service.impl;
 
+import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.EventDetailRepository;
+import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.TransactionEarnRateRepository;
+import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.TransactionRepository;
+import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.XpEventRepository;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.EventDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.TransactionDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserItemResponseDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.*;
+import com.pnc.apifest2019.rewardsplayinggameservice.service.ItemService;
+import com.pnc.apifest2019.rewardsplayinggameservice.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -97,11 +109,11 @@ public class TransactionServiceImpl implements TransactionService {
         return oldBalance + earnedAmount;
     }
 
-    private EventDetail validateAndGetEventDetail(String name, long productId){
+    private EventDetail validateAndGetEventDetail(String name, long productId) {
         Optional<EventDetail> eventDetail = eventDetailRepository.findByNameAndProductId(name, productId);
-        if(eventDetail.isPresent()){
+        if (eventDetail.isPresent()) {
             return eventDetail.get();
-        }
-        else{
+        } else {
             throw new RuntimeException();
         }
+    }}

@@ -1,6 +1,8 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response;
 
 
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Item;
+
 public class UserItemResponseDto {
 
     public UserItemResponseDto(Item item){

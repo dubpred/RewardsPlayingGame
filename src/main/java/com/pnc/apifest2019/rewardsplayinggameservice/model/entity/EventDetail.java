@@ -1,4 +1,5 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.model.entity;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.EventDetailDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

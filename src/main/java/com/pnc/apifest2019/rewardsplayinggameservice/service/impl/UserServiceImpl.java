@@ -1,9 +1,18 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.service.impl;
 
+import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.ProductRepository;
+import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.UserRepository;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.UserDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserResponseDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Item;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.User;
+import com.pnc.apifest2019.rewardsplayinggameservice.service.ItemService;
+import com.pnc.apifest2019.rewardsplayinggameservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {

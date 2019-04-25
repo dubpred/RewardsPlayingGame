@@ -1,5 +1,7 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response;
 
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Product;
+
 //TODO: determine what all fields need to be returned
 public class ProductResponseDto {
 

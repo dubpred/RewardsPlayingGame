@@ -1,5 +1,10 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.service.impl;
 
+import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.ItemRepository;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Item;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Product;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.User;
+import com.pnc.apifest2019.rewardsplayinggameservice.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

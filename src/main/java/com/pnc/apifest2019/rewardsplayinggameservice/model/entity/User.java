@@ -1,10 +1,9 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.model.entity;
 
-import obp.apifest.rpgrewardsservice.api.model.dto.request.UserDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.UserDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

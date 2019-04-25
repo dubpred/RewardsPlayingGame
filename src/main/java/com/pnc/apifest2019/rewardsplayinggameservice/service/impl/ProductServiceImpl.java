@@ -1,5 +1,12 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.service.impl;
 
+import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.ProductRepository;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.ProductDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.ProductResponseDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.EventDetail;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Product;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.TransactionEarnRate;
+import com.pnc.apifest2019.rewardsplayinggameservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
