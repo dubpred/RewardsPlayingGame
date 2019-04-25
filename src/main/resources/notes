@@ -1,0 +1,22 @@
+- For the @ManyToOne Will keep the fetch type as default (Eager) as we wont be dealing with that much data, eager fetchs everything on start up which
+can potentially lead to a lot of overhead and lazy means we only get the data at runtime when we call a get method
+
+- need to take a look at cascading and orphan removal for the @OneToMany
+UPDATE: not deleting anything right now so not worried about cascade for the time being
+
+- need to look at nullable annotation for entities and determine when it is appropriate to use
+UPDATE: use @NotNull instead of @Column(nullable = false), explaination here: https://thoughts-on-java.org/hibernate-tips-whats-the-difference-between-column-nullable-false-and-notnull/
+
+- using @GeneratedValue(strategy = GenerationType.IDENTITY) because the id's in the DB are set to auto-increment
+
+- default propagation behavior with @Transactional = Required meaning that a transaction must take place in the method or
+the method will not run
+
+- need to look at if there needs to be a @NotNull for columns with default values
+
+transient: a new object that hasn't been assocaited with a Hibernate session
+persistent: an object that has a representation in the database and an id value, hibernate will detect any changes to a
+    persistent object and take care of the SQL statements that need to be executed for this session
+detached: an object that has been persistent but the session closed
+
+- use patch for partial object updates and put for full object updates
