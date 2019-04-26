@@ -30,6 +30,8 @@ public class Transaction {
     @Column(name = "vendor")
     private String vendor;
 
+
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "posted_date")
@@ -128,4 +130,6 @@ public class Transaction {
     public void setPointAmount(long pointAmount) {
         this.pointAmount = pointAmount;
     }
+
+
 }

@@ -1,15 +1,9 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.service.impl;
 
-import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.EventDetailRepository;
-import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.TransactionEarnRateRepository;
 import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.TransactionRepository;
-import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.XpEventRepository;
-import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.EventDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.TransactionDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.TransactionResponseDto;
-import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserItemResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.*;
-import com.pnc.apifest2019.rewardsplayinggameservice.service.ItemService;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.ProductService;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.TransactionService;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.UserService;
@@ -17,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.InternationalFormatter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,23 +20,14 @@ import java.util.Optional;
 public class TransactionServiceImpl implements TransactionService {
 
     private final UserService userService;
-    private final TransactionEarnRateRepository transactionEarnRateRepository;
     private final TransactionRepository transactionRepository;
-    private final EventDetailRepository eventDetailRepository;
-    private final XpEventRepository xpEventRepository;
     private final ProductService productService;
 
     @Autowired
-    public TransactionServiceImpl(final TransactionEarnRateRepository transactionEarnRateRepository,
-                                  final TransactionRepository transactionRepository,
-                                  final EventDetailRepository eventDetailRepository,
-                                  final XpEventRepository xpEventRepository,
+    public TransactionServiceImpl(final TransactionRepository transactionRepository,
                                   final UserService userService,
                                   final ProductService productService){
-        this.transactionEarnRateRepository = transactionEarnRateRepository;
         this.transactionRepository = transactionRepository;
-        this.eventDetailRepository = eventDetailRepository;
-        this.xpEventRepository = xpEventRepository;
         this.userService = userService;
         this.productService = productService;
     }
@@ -66,9 +49,15 @@ public class TransactionServiceImpl implements TransactionService {
             .findFirst();
 
         //get earn rate
-        transactionEarnRate.ifPresent(t ->
-            user.setPointsBalance(calculateNewBalance
-                (transactionDto.getAmount(), t.getPointEarnRate(), user.getPointsBalance())));
+        transactionEarnRate.ifPresent(t -> {
+                if(t.getPointEarnAmount() == 0) {
+                    user.setPointsBalance(calculateNewBalance
+                        (transactionDto.getAmount(), t.getPointEarnRate(), user.getPointsBalance()));
+                }else{
+                    user.setPointsBalance(user.getPointsBalance() + t.getPointEarnAmount());
+                }
+            }
+        );
 
         //calculate and set the new points balance
         if(checkForLevelUp(user.getPointsBalance(), user.getTier())){
@@ -104,10 +93,7 @@ public class TransactionServiceImpl implements TransactionService {
         return new UserItemResponseDto(item);
     }
 */
-    //TODO: check on this math
-    //TODO: This formula will round down (if transaction is for $50.76 -> will earn 50 xp), is this a problem for demo?
-    private long calculateNewBalance(BigDecimal transactionAmount, BigDecimal earnRate, long oldBalance){
-        //TODO: look up multiplying 2 longs
+     private long calculateNewBalance(BigDecimal transactionAmount, BigDecimal earnRate, long oldBalance){
         long earnedAmount = earnRate.longValue() * transactionAmount.longValue();
         return oldBalance + earnedAmount;
     }

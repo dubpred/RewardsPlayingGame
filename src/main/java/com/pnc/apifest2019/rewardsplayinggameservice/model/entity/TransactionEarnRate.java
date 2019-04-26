@@ -27,6 +27,10 @@ public class TransactionEarnRate {
     @Column(name = "point_earn_rate") //TODO: determine if this should be not null with default value
     private BigDecimal pointEarnRate;
 
+    @NotNull
+    @Column(name = "point_earn_amount")
+    private long pointEarnAmount;
+
     //------------------------------------------- Mappings -------------------------------------------------------------
     //Many transaction_earn_rates can have one product
     @NotNull
@@ -79,6 +83,14 @@ public class TransactionEarnRate {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public long getPointEarnAmount() {
+        return pointEarnAmount;
+    }
+
+    public void setPointEarnAmount(long pointEarnAmount) {
+        this.pointEarnAmount = pointEarnAmount;
     }
 
     public enum TransactionCatagory{

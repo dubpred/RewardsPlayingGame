@@ -25,7 +25,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    //TODO: add checks for valid ED's and TER's
     public ProductResponseDto createProduct(ProductDto productDto) {
 
         ProductResponseDto productResponseDto = new ProductResponseDto();

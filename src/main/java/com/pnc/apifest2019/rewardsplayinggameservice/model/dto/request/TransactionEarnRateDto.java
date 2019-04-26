@@ -23,6 +23,8 @@ public class TransactionEarnRateDto {
     @Min(value = 1, message = "Must have an earn rate of at least 1")
     private BigDecimal pointEarnRate;
 
+    private long pointEarnAmounr;
+
     public long getTier() {
         return tier;
     }
@@ -47,4 +49,11 @@ public class TransactionEarnRateDto {
         this.pointEarnRate = pointEarnRate;
     }
 
+    public long getPointEarnAmounr() {
+        return pointEarnAmounr;
+    }
+
+    public void setPointEarnAmounr(long pointEarnAmounr) {
+        this.pointEarnAmounr = pointEarnAmounr;
+    }
 }
