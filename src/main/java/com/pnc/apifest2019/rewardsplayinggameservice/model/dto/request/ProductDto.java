@@ -18,7 +18,6 @@ public class ProductDto {
     @NotNull
     private List<TransactionEarnRateDto> transactionEarnRates;
 
-    @NotNull
     private List<EventDetailDto> eventDetails;
 
     public String getName() {

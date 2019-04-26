@@ -3,7 +3,6 @@ package com.pnc.apifest2019.rewardsplayinggameservice.service.impl;
 import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.ProductRepository;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.ProductDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.ProductResponseDto;
-import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.EventDetail;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Product;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.TransactionEarnRate;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.ProductService;
@@ -49,6 +48,7 @@ public class ProductServiceImpl implements ProductService {
             product.setTransactionEarnRates(transactionEarnRates);
 
             //add event details to the product
+         /*
             List<EventDetail> eventDetails = productDto.getEventDetails().
                     stream()
                     .map(ed -> {
@@ -58,6 +58,8 @@ public class ProductServiceImpl implements ProductService {
                         return eventDetail;
                     }).collect(Collectors.toList());
             product.setEventDetails(eventDetails);
+            */
+
 
             //save final product
             //here, we have a new object (transient) so we need to explicitly call the save method

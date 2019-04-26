@@ -50,11 +50,9 @@ public class TransactionServiceImpl implements TransactionService {
 
         //get earn rate
         transactionEarnRate.ifPresent(t -> {
-                if(t.getPointEarnAmount() == 0) {
+                if(t.getPointEarnRate().doubleValue() > 0) {
                     user.setPointsBalance(calculateNewBalance
                         (transactionDto.getAmount(), t.getPointEarnRate(), user.getPointsBalance()));
-                }else{
-                    user.setPointsBalance(user.getPointsBalance() + t.getPointEarnAmount());
                 }
             }
         );
@@ -69,7 +67,11 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.init(transactionDto);
         transaction.setUser(user);
         transaction.setProduct(product);
-        transaction.setPointAmount(transactionDto.getAmount().longValue() * transactionEarnRate.get().getPointEarnRate().longValue());
+        if(transactionEarnRate.isPresent()){
+            transaction.setPointAmount(transactionDto.getAmount().longValue() * transactionEarnRate.get().getPointEarnRate().longValue());
+        }else{
+            transaction.setPointAmount(transactionDto.getAmount().longValue());
+        }
         Transaction savedTransaction = transactionRepository.saveAndFlush(transaction);
 
         return new TransactionResponseDto(transactionDto.getTransactionCatagory(), transactionDto.getAmount(), transaction.getPostedDate());
@@ -94,8 +96,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 */
      private long calculateNewBalance(BigDecimal transactionAmount, BigDecimal earnRate, long oldBalance){
-        long earnedAmount = earnRate.longValue() * transactionAmount.longValue();
-        return oldBalance + earnedAmount;
+        double earnedAmount = earnRate.doubleValue() * transactionAmount.doubleValue();
+        return oldBalance + (long)earnedAmount;
     }
 /*
     private EventDetail validateAndGetEventDetail(String name, long productId) {

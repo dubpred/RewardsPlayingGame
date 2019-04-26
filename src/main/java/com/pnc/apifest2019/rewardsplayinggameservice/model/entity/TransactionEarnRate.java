@@ -27,7 +27,7 @@ public class TransactionEarnRate {
     @Column(name = "point_earn_rate") //TODO: determine if this should be not null with default value
     private BigDecimal pointEarnRate;
 
-    @NotNull
+
     @Column(name = "point_earn_amount")
     private long pointEarnAmount;
 
@@ -43,6 +43,7 @@ public class TransactionEarnRate {
         this.tier = transactionEarnRateDto.getTier();
         this.transactionCatagory = transactionEarnRateDto.getTransactionCatagory();
         this.pointEarnRate = transactionEarnRateDto.getPointEarnRate();
+        this.pointEarnAmount = transactionEarnRateDto.getPointEarnAmount();
     }
 
     public long getId() {
@@ -104,6 +105,7 @@ public class TransactionEarnRate {
         STUDENT_LOAN_PAYMENT,
         CAR_PAYMENT,
         MTG_PAYMENT,
+        REFFERAL
 
     }
 
