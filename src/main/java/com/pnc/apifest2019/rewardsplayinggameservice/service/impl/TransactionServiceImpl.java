@@ -165,7 +165,7 @@ public class TransactionServiceImpl implements TransactionService {
             }
      }
 
-    public static long getPointsToNextTier(int currentAccPoints, int currentTeir){
+    public static long getPointsToNextTier(long currentAccPoints, long currentTeir){
         List<Long> xpToLvlList = new ArrayList<Long>();
 
         xpToLvlList.add((long)1000);
@@ -175,9 +175,9 @@ public class TransactionServiceImpl implements TransactionService {
         xpToLvlList.add((long)5000);
 
         //lower bound of current level
-        long lower = xpToLvlList.get(currentTeir);
+        long lower = xpToLvlList.get((int)currentTeir);
         //upper bound of current level
-        long upper = xpToLvlList.get(currentTeir +1);
+        long upper = xpToLvlList.get((int)currentTeir +1);
 
         return (upper - currentAccPoints);
 
