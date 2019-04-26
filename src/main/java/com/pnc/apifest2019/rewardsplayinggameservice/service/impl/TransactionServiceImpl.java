@@ -121,36 +121,41 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private boolean checkForLevelUp(int currentXp, int currentTier, int maxTier, String xpTierFormula){
+    private boolean checkForLevelUp(int currentXp, int currentTier /*,int maxTier, String xpTierFormula*/){
         List<Long> xpToLvlList = new ArrayList<Long>();
 
+        xpToLvlList.add((long)1000);
+        xpToLvlList.add((long)2000);
+        xpToLvlList.add((long)3000);
+        xpToLvlList.add((long)4000);
+        xpToLvlList.add((long)5000);
 
-        //depending on leveling Algorithm
-            switch (xpTierFormula){
-                case "Exponential":
-                    for(int i = 0; i < maxTier; i++) {
-                        xpToLvlList.add((long)1000);
-                        xpToLvlList.add((long)3000);
-                        xpToLvlList.add((long)9000);
-                        xpToLvlList.add((long)27000);
-                        xpToLvlList.add((long)100000);
+        //lower bound of current level
+        long lower = xpToLvlList.get(currentTier);
+        //upper bound of current level
+        long upper = xpToLvlList.get(currentTier +1);
+
+//        //depending on leveling Algorithm
+//            switch (xpTierFormula){
+//                case "Exponential":
+//                    for(int i = 0; i < maxTier; i++) {
+//                        xpToLvlList.add((long)1000);
+//                        xpToLvlList.add((long)3000);
+//                        xpToLvlList.add((long)9000);
+//                        xpToLvlList.add((long)27000);
+//                        xpToLvlList.add((long)100000);
+//
+//
+//                    }
+//                    break;
+//                case "Linear":
+//                    for(int i = 0; i < maxTier; i++) {
+//                        xpToLvlList.add((long)i * 250);
+//                    }
+//                    break;
+//            }
 
 
-                    }
-                    break;
-                case "Linear":
-                    for(int i = 0; i < maxTier; i++) {
-                        xpToLvlList.add((long)i * 250);
-                    }
-                    break;
-            }
-
-
-
-            //lower bound of current level
-            long lower = xpToLvlList.get(currentTier);
-            //upper bound of current level
-            long upper = xpToLvlList.get(currentTier +1);
 
             //if current xp exceeds the upper limit of the current level you have leveled up
             if(currentXp>upper){
@@ -158,12 +163,27 @@ public class TransactionServiceImpl implements TransactionService {
             }else{
                 return false;
             }
+     }
+
+    public static long getPointsToNextTier(int currentAccPoints, int currentTeir){
+        List<Long> xpToLvlList = new ArrayList<Long>();
+
+        xpToLvlList.add((long)1000);
+        xpToLvlList.add((long)2000);
+        xpToLvlList.add((long)3000);
+        xpToLvlList.add((long)4000);
+        xpToLvlList.add((long)5000);
+
+        //lower bound of current level
+        long lower = xpToLvlList.get(currentTeir);
+        //upper bound of current level
+        long upper = xpToLvlList.get(currentTeir +1);
+
+        return (upper - currentAccPoints);
 
 
 
     }
-
-
 
 
 }
