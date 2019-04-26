@@ -111,19 +111,25 @@ public class TransactionServiceImpl implements TransactionService {
     }
 */
     private boolean checkForLevelUp(int currentXp, int currentTier, int maxTier, String xpTierFormula){
-        List<Integer> xpToLvlList = new ArrayList<Integer>();
+        List<Long> xpToLvlList = new ArrayList<Long>();
 
 
         //depending on leveling Algorithm
             switch (xpTierFormula){
-                case "Runescape":
+                case "Exponential":
                     for(int i = 0; i < maxTier; i++) {
-                        xpToLvlList.add((int) (i + 300 * Math.pow(2, i / 7)) / 4);
+                        xpToLvlList.add((long)1000);
+                        xpToLvlList.add((long)3000);
+                        xpToLvlList.add((long)9000);
+                        xpToLvlList.add((long)27000);
+                        xpToLvlList.add((long)100000);
+
+
                     }
                     break;
                 case "Linear":
                     for(int i = 0; i < maxTier; i++) {
-                        xpToLvlList.add(i * 250);
+                        xpToLvlList.add((long)i * 250);
                     }
                     break;
             }
@@ -131,9 +137,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 
             //lower bound of current level
-            int lower = xpToLvlList.get(currentTier);
+            long lower = xpToLvlList.get(currentTier);
             //upper bound of current level
-            int upper = xpToLvlList.get(currentTier +1);
+            long upper = xpToLvlList.get(currentTier +1);
 
             //if current xp exceeds the upper limit of the current level you have leveled up
             if(currentXp>upper){
