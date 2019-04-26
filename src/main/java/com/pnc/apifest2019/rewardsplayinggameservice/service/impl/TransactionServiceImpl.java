@@ -74,7 +74,7 @@ public class TransactionServiceImpl implements TransactionService {
         }
         Transaction savedTransaction = transactionRepository.saveAndFlush(transaction);
 
-        return new TransactionResponseDto(transactionDto.getTransactionCatagory(), transactionDto.getAmount(), transaction.getPostedDate());
+        return new TransactionResponseDto(transactionDto.getTransactionCatagory(), transaction.getPointAmount(), transaction.getPostedDate());
     }
 /*
     public UserItemResponseDto postEvent(long itemId, EventDto eventDto){

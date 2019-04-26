@@ -105,7 +105,7 @@ public class TransactionEarnRate {
         STUDENT_LOAN_PAYMENT,
         CAR_PAYMENT,
         MTG_PAYMENT,
-        REFFERAL
+        REFERRAL
 
     }
 

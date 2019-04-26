@@ -2,18 +2,17 @@ package com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response;
 
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.TransactionEarnRate;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class TransactionResponseDto {
 
   private TransactionEarnRate.TransactionCatagory transactionCatagory;
 
-  private BigDecimal amount;
+  private long amount;
 
   private Date postedDate;
 
-  public TransactionResponseDto(TransactionEarnRate.TransactionCatagory transactionCatagory, BigDecimal amount, Date postedDate){
+  public TransactionResponseDto(TransactionEarnRate.TransactionCatagory transactionCatagory, long amount, Date postedDate){
     this.transactionCatagory = transactionCatagory;
     this.amount = amount;
     this.postedDate = postedDate;
@@ -27,11 +26,11 @@ public class TransactionResponseDto {
     this.transactionCatagory = transactionCatagory;
   }
 
-  public BigDecimal getAmount() {
+  public long getAmount() {
     return amount;
   }
 
-  public void setAmount(BigDecimal amount) {
+  public void setAmount(long amount) {
     this.amount = amount;
   }
 
