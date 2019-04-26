@@ -13,6 +13,12 @@ public class TransactionResponseDto {
 
   private Date postedDate;
 
+  public TransactionResponseDto(TransactionEarnRate.TransactionCatagory transactionCatagory, BigDecimal amount, Date postedDate){
+    this.transactionCatagory = transactionCatagory;
+    this.amount = amount;
+    this.postedDate = postedDate;
+  }
+
   public TransactionEarnRate.TransactionCatagory getTransactionCatagory() {
     return transactionCatagory;
   }

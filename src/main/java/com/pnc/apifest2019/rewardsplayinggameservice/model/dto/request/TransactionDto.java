@@ -7,8 +7,7 @@ import java.math.BigDecimal;
 
 public class TransactionDto {
 
-    @NotNull
-    private String userName;
+    private long id;
 
     @NotNull
     private String product;
@@ -46,12 +45,12 @@ public class TransactionDto {
         this.vendor = vendor;
     }
 
-    public String getUserName() {
-        return userName;
+    public long getId() {
+        return id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getProduct() {

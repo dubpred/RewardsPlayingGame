@@ -72,13 +72,13 @@ public class Transaction {
         this.postedDate = createdDate;
     }
 
-   // public User getUser() {
-     //   return user;
-    //}
+    public User getUser() {
+        return user;
+    }
 
-    //public void setUser(User user) {
-      //  this.user = user;
-    //}
+    public void setUser(User user) {
+       this.user = user;
+    }
 
     public TransactionEarnRate.TransactionCatagory getTransactionCatagory() {
         return transactionCatagory;

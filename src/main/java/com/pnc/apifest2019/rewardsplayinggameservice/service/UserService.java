@@ -8,7 +8,7 @@ public interface UserService {
 
     UserResponseDto createUser(CreateUserDto createUserDto);
 
-    User validateAndGetUser(String name);
+    User validateAndGetUser(long id);
 /*
     UserItemResponseDto getDemoResponse(String lastName, String productName);
     */

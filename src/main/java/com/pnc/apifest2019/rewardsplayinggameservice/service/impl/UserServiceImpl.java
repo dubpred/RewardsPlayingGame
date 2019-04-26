@@ -68,8 +68,8 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 */
-    public User validateAndGetUser(String name){
-        Optional<User> user = userRepository.findByName(name);
+    public User validateAndGetUser(long id){
+        Optional<User> user = userRepository.findById(id);
         if(user.isPresent()){
             return user.get();
         }else{

@@ -2,6 +2,7 @@ package com.pnc.apifest2019.rewardsplayinggameservice.controller;
 
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.EventDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.TransactionDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.TransactionResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserItemResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class TransactionController {
 
 
     @PostMapping
-    public ResponseEntity<UserItemResponseDto> postTransaction(@RequestBody TransactionDto transactionDto){
+    public ResponseEntity<TransactionResponseDto> postTransaction(@RequestBody TransactionDto transactionDto){
         return ResponseEntity.ok(transactionService.postTransaction(transactionDto));
     }
 

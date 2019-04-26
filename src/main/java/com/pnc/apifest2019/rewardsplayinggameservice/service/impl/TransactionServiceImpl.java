@@ -6,6 +6,7 @@ import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.Transactio
 import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.XpEventRepository;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.EventDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.TransactionDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.TransactionResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserItemResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.*;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.ItemService;
@@ -50,10 +51,10 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     @Transactional
-    public UserItemResponseDto postTransaction(TransactionDto transactionDto) {
+    public TransactionResponseDto postTransaction(TransactionDto transactionDto) {
 
         //Get the User if they exist
-        User user = userService.validateAndGetUser(transactionDto.getUserName());
+        User user = userService.validateAndGetUser(transactionDto.getId());
         //get product
         Product product = productService.validateAndGetProduct(transactionDto.getProduct());
 
@@ -64,12 +65,23 @@ public class TransactionServiceImpl implements TransactionService {
             .filter(ter -> transactionDto.getTransactionCatagory() == ter.getTransactionCatagory() && user.getTier() == ter.getTier())
             .findFirst();
 
+        //get earn rate
+        transactionEarnRate.ifPresent(t ->
+            user.setPointsBalance(calculateNewBalance
+                (transactionDto.getAmount(), t.getPointEarnRate(), user.getPointsBalance())));
+
         //calculate and set the new points balance
-        user.setPointsBalance(calculateNewBalance(transactionDto.getAmount(), transactionEarnRate.get().getPointEarnRate(), user.getPointsBalance()));
+        if(checkForLevelUp(user.getPointsBalance(), user.getTier())){
+            user.setTier(user.getTier() + 1);
+        }
 
-        if(checkForLevelUp(user.getPointsBalance(), user.getTier()))
+        //Save transaction
+        Transaction transaction = new Transaction();
+        transaction.init(transactionDto);
+        transaction.setUser(user);
+        Transaction savedTransaction = transactionRepository.saveAndFlush(transaction);
 
-            return null;
+        return new TransactionResponseDto(transactionDto.getTransactionCatagory(), transactionDto.getAmount(), transaction.getPostedDate());
     }
 /*
     public UserItemResponseDto postEvent(long itemId, EventDto eventDto){
@@ -107,7 +119,7 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 */
-    private boolean checkForLevelUp(int currentXp, int currentTier /*,int maxTier, String xpTierFormula*/){
+    private boolean checkForLevelUp(long currentXp, long currentTier /*,int maxTier, String xpTierFormula*/){
         List<Long> xpToLvlList = new ArrayList<Long>();
 
         xpToLvlList.add((long)1000);
@@ -117,9 +129,9 @@ public class TransactionServiceImpl implements TransactionService {
         xpToLvlList.add((long)5000);
 
         //lower bound of current level
-        long lower = xpToLvlList.get(currentTier);
+        long lower = xpToLvlList.get((int)currentTier);
         //upper bound of current level
-        long upper = xpToLvlList.get(currentTier +1);
+        long upper = xpToLvlList.get((int)currentTier +1);
 
 //        //depending on leveling Algorithm
 //            switch (xpTierFormula){
