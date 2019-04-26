@@ -79,6 +79,8 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction = new Transaction();
         transaction.init(transactionDto);
         transaction.setUser(user);
+        transaction.setProduct(product);
+        transaction.setPointAmount(transactionDto.getAmount().longValue() * transactionEarnRate.get().getPointEarnRate().longValue());
         Transaction savedTransaction = transactionRepository.saveAndFlush(transaction);
 
         return new TransactionResponseDto(transactionDto.getTransactionCatagory(), transactionDto.getAmount(), transaction.getPostedDate());

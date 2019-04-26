@@ -6,7 +6,7 @@ public class DemoResponseDto {
 
   private String name;
 
-  private String pointsBalance;
+  private long pointsBalance;
 
   private long tier;
 
@@ -22,11 +22,11 @@ public class DemoResponseDto {
     this.name = name;
   }
 
-  public String getPointsBalance() {
+  public long getPointsBalance() {
     return pointsBalance;
   }
 
-  public void setPointsBalance(String pointsBalance) {
+  public void setPointsBalance(long pointsBalance) {
     this.pointsBalance = pointsBalance;
   }
 

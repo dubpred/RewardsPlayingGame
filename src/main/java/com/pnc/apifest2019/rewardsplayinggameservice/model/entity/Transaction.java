@@ -35,12 +35,21 @@ public class Transaction {
     @Column(name = "posted_date")
     private Date postedDate;
 
+    @Column(name = "point_amount")
+    private long pointAmount;
+
+
     //------------------------------------------- Mappings -------------------------------------------------------------
     //Many transactions can have one user
     @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
     //------------------------------------------- End of Mappings -------------------------------------------------------
 
     public void init(TransactionDto transactionDto){
@@ -102,5 +111,21 @@ public class Transaction {
 
     public void setPostedDate(Date postedDate) {
         this.postedDate = postedDate;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public long getPointAmount() {
+        return pointAmount;
+    }
+
+    public void setPointAmount(long pointAmount) {
+        this.pointAmount = pointAmount;
     }
 }

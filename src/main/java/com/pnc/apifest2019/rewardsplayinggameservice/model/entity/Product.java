@@ -36,6 +36,9 @@ public class Product {
     //One product can have many event_details
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EventDetail> eventDetails;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions;
     //------------------------------------------- End of Mappings -------------------------------------------------------
 
     public void init(ProductDto productDto){
@@ -88,6 +91,14 @@ public class Product {
 
     public void setEventDetails(List<EventDetail> eventDetails) {
         this.eventDetails = eventDetails;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     //------------------------------------------- Enums -------------------------------------------------------------

@@ -4,12 +4,14 @@ import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.ProductRep
 import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.UserRepository;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.CreateUserDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.DemoResponseDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.TableResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Item;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Product;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.User;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.ItemService;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.ProductService;
+import com.pnc.apifest2019.rewardsplayinggameservice.service.TransactionService;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,19 +24,14 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final ProductRepository productRepository;
-    private final ItemService itemService;
+
     private final ProductService productService;
 
 
     @Autowired
     public UserServiceImpl(final UserRepository userRepository,
-                           final ProductRepository productRepository,
-                           final ItemService itemService,
                            final ProductService productService){
         this.userRepository = userRepository;
-        this.productRepository = productRepository;
-        this.itemService = itemService;
         this.productService = productService;
     }
 
@@ -87,7 +84,12 @@ public class UserServiceImpl implements UserService {
         demoResponseDto.setName(user.getName());
         demoResponseDto.setTier(user.getTier());
         demoResponseDto.setPointToNextLevel(TransactionServiceImpl.getPointsToNextTier(user.getPointsBalance(), user.getTier()));
-        return null;
+        demoResponseDto.setPointsBalance(user.getPointsBalance());
+
+        demoResponseDto.setTable(user.getTransactions().stream().map(t -> {
+            return new TableResponseDto(t.getProduct().getName(), t.getTransactionCatagory().toString(), t.getVendor(), t.getAmount(), t.getPointAmount());
+        }).collect(Collectors.toList()));
+        return demoResponseDto;
     }
 
 
