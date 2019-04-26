@@ -9,7 +9,9 @@ import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.Transacti
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserItemResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.*;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.ItemService;
+import com.pnc.apifest2019.rewardsplayinggameservice.service.ProductService;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.TransactionService;
+import com.pnc.apifest2019.rewardsplayinggameservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,57 +26,51 @@ import java.util.Optional;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private final ItemService itemService;
+    private final UserService userService;
     private final TransactionEarnRateRepository transactionEarnRateRepository;
     private final TransactionRepository transactionRepository;
     private final EventDetailRepository eventDetailRepository;
     private final XpEventRepository xpEventRepository;
+    private final ProductService productService;
 
     @Autowired
-    public TransactionServiceImpl(final ItemService itemService,
-                                  final TransactionEarnRateRepository transactionEarnRateRepository,
+    public TransactionServiceImpl(final TransactionEarnRateRepository transactionEarnRateRepository,
                                   final TransactionRepository transactionRepository,
                                   final EventDetailRepository eventDetailRepository,
-                                  final XpEventRepository xpEventRepository){
-        this.itemService = itemService;
+                                  final XpEventRepository xpEventRepository,
+                                  final UserService userService,
+                                  final ProductService productService){
         this.transactionEarnRateRepository = transactionEarnRateRepository;
         this.transactionRepository = transactionRepository;
         this.eventDetailRepository = eventDetailRepository;
         this.xpEventRepository = xpEventRepository;
+        this.userService = userService;
+        this.productService = productService;
     }
 
     @Override
     @Transactional
-    public UserItemResponseDto postTransaction(long itemId, TransactionDto transactionDto) {
+    public UserItemResponseDto postTransaction(TransactionDto transactionDto) {
 
-        //Get the item if it exists
-        Item item = itemService.validateAndGetItem(itemId);
+        //Get the User if they exist
+        User user = userService.validateAndGetUser(transactionDto.getUserName());
+        //get product
+        Product product = productService.validateAndGetProduct(transactionDto.getProduct());
 
-        //Get all the TERs for the item's product
-        /*
-        List<TransactionEarnRate> transactionEarnRatesForProduct = transactionEarnRateRepository.findTransactionEarnRatesByProductId(item.getProduct().getId());
-*/
-        //Get all the transaction earn rates of the item's product
-        //TODO: add a "validate and get" TER method
+        //get transaction earn rate for a product, tier, and transaction catagory
+        Optional<TransactionEarnRate> transactionEarnRate = product
+            .getTransactionEarnRates()
+            .stream()
+            .filter(ter -> transactionDto.getTransactionCatagory() == ter.getTransactionCatagory() && user.getTier() == ter.getTier()).findFirst();
 
-        //set the User's new point balance based on the transaction
-        //TODO: fix warning
+        //calculate and set the new points balance
+        user.setPointsBalance(calculateNewBalance(transactionDto.getAmount(), transactionEarnRate.get().getPointEarnRate(), user.getPointsBalance()));
 
-        //calculate if Level Up
- //       if(checkForLevelUp(item.getXpBalance(), item.getTier(), item.getProduct().getNumberOfTiers(), item.getProduct().getXpTierFormula()))
+       // if(checkForLevelUp(user.getPointsBalance(), user.getTier()))
 
-
-
-        //save the Transaction
-        Transaction transaction = new Transaction();
-        transaction.init(transactionDto);
-
-        transactionRepository.saveAndFlush(transaction);
-
-        //respond with the User-Item details
-        return new UserItemResponseDto(item);
+            return null;
     }
-
+/*
     public UserItemResponseDto postEvent(long itemId, EventDto eventDto){
 
         //get the item or throw an exception if it doesn't exist
@@ -92,7 +88,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         return new UserItemResponseDto(item);
     }
-
+*/
     //TODO: check on this math
     //TODO: This formula will round down (if transaction is for $50.76 -> will earn 50 xp), is this a problem for demo?
     private long calculateNewBalance(BigDecimal transactionAmount, BigDecimal earnRate, long oldBalance){

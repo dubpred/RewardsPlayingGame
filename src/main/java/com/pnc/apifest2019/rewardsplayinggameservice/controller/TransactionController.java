@@ -29,9 +29,8 @@ public class TransactionController {
 
 
     @PostMapping
-    public ResponseEntity<UserItemResponseDto> postTransaction(@RequestBody TransactionDto transactionDto,
-                                                               @RequestParam long itemId){
-        return ResponseEntity.ok(transactionService.postTransaction(itemId, transactionDto));
+    public ResponseEntity<UserItemResponseDto> postTransaction(@RequestBody TransactionDto transactionDto){
+        return ResponseEntity.ok(transactionService.postTransaction(transactionDto));
     }
 
     @PostMapping(value = "/event")

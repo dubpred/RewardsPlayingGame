@@ -8,7 +8,16 @@ import java.math.BigDecimal;
 public class TransactionDto {
 
     @NotNull
+    private String userName;
+
+    @NotNull
+    private String product;
+
+    @NotNull
     private TransactionEarnRate.TransactionCatagory transactionCatagory;
+
+    @NotNull
+    private String vendor;
 
     @NotNull
     private BigDecimal amount;
@@ -27,5 +36,29 @@ public class TransactionDto {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
     }
 }

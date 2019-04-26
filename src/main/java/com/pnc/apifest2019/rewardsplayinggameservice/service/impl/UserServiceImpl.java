@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,15 +67,15 @@ public class UserServiceImpl implements UserService {
         //get the user's item of the specified product
         return null;
     }
-/*
-    private User validateAndGetUser(String lastName){
-        Optional<User> user = userRepository.findByLastName(lastName);
+*/
+    public User validateAndGetUser(String name){
+        Optional<User> user = userRepository.findByName(name);
         if(user.isPresent()){
             return user.get();
         }else{
             throw new RuntimeException();
         }
     }
-    */
+
 
 }

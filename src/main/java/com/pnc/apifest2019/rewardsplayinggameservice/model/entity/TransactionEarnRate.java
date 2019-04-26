@@ -65,6 +65,14 @@ public class TransactionEarnRate {
         this.transactionCatagory = transactionCatagory;
     }
 
+    public long getTier() {
+        return tier;
+    }
+
+    public void setTier(long tier) {
+        this.tier = tier;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -81,6 +89,10 @@ public class TransactionEarnRate {
         RESTAURANT,
         GROCERY,
         ALL,
+        STUDENT_LOAN_PAYMENT,
+        CAR_PAYMENT,
+        MTG_PAYMENT,
+
     }
 
 }

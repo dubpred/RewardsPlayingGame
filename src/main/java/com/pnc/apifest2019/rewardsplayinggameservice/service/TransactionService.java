@@ -7,7 +7,7 @@ import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserItem
 
 public interface TransactionService {
 
-    UserItemResponseDto postTransaction(long itemId, TransactionDto transactionDto);
+    UserItemResponseDto postTransaction(TransactionDto transactionDto);
 
-    UserItemResponseDto postEvent(long itemId, EventDto eventDto);
+    //UserItemResponseDto postEvent(long itemId, EventDto eventDto);
 }
