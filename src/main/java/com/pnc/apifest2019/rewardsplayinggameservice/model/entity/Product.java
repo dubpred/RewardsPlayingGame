@@ -19,20 +19,6 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "product_catagory")
-    private ProductCatagory productCatagory;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "xp_tier_formula")
-    private XpTierFormula xpTierFormula;
-
-    @NotNull
-    @Column(name = "number_of_tiers")
-    private long numberOfTiers;
-
     @CreationTimestamp
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "created_date")
@@ -54,9 +40,6 @@ public class Product {
 
     public void init(ProductDto productDto){
         this.name = productDto.getName();
-        this.productCatagory = productDto.getProductCatagory();
-        this.xpTierFormula = productDto.getXpTierFormula();
-        this.numberOfTiers = productDto.getNumberOfTiers();
     }
 
     public long getId() {
@@ -75,36 +58,12 @@ public class Product {
         this.name = name;
     }
 
-    public long getNumberOfTiers() {
-        return numberOfTiers;
-    }
-
-    public void setNumberOfTiers(long numberOfTiers) {
-        this.numberOfTiers = numberOfTiers;
-    }
-
     public Date getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public ProductCatagory getProductCatagory() {
-        return productCatagory;
-    }
-
-    public void setProductCatagory(ProductCatagory productCatagory) {
-        this.productCatagory = productCatagory;
-    }
-
-    public XpTierFormula getXpTierFormula() {
-        return xpTierFormula;
-    }
-
-    public void setXpTierFormula(XpTierFormula xpTierFormula) {
-        this.xpTierFormula = xpTierFormula;
     }
 
     public List<Item> getItems() {
@@ -136,7 +95,4 @@ public class Product {
         CREDIT_CARD
     }
 
-    public enum XpTierFormula{
-        STANDARD
-    }
 }

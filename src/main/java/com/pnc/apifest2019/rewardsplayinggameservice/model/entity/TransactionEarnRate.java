@@ -27,10 +27,6 @@ public class TransactionEarnRate {
     @Column(name = "point_earn_rate") //TODO: determine if this should be not null with default value
     private BigDecimal pointEarnRate;
 
-    @NotNull //TODO: determine if this should be not null with default value
-    @Column(name = "xp_earn_rate")
-    private BigDecimal xpEarnRate;
-
     //------------------------------------------- Mappings -------------------------------------------------------------
     //Many transaction_earn_rates can have one product
     @NotNull
@@ -40,10 +36,9 @@ public class TransactionEarnRate {
     //------------------------------------------- End of Mappings -------------------------------------------------------
 
     public void init(TransactionEarnRateDto transactionEarnRateDto){
-        this.transactionCatagory = transactionEarnRateDto.getTransactionCatagory();
         this.tier = transactionEarnRateDto.getTier();
+        this.transactionCatagory = transactionEarnRateDto.getTransactionCatagory();
         this.pointEarnRate = transactionEarnRateDto.getPointEarnRate();
-        this.xpEarnRate = transactionEarnRateDto.getXpEarnRate();
     }
 
     public long getId() {
@@ -60,22 +55,6 @@ public class TransactionEarnRate {
 
     public void setPointEarnRate(BigDecimal pointEarnRate) {
         this.pointEarnRate = pointEarnRate;
-    }
-
-    public BigDecimal getXpEarnRate() {
-        return xpEarnRate;
-    }
-
-    public void setXpEarnRate(BigDecimal xpEarnRate) {
-        this.xpEarnRate = xpEarnRate;
-    }
-
-    public long getTier() {
-        return tier;
-    }
-
-    public void setTier(long tier) {
-        this.tier = tier;
     }
 
     public TransactionCatagory getTransactionCatagory() {
@@ -101,7 +80,7 @@ public class TransactionEarnRate {
         TRAVEL,
         RESTAURANT,
         GROCERY,
-        ALL
+        ALL,
     }
 
 }

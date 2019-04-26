@@ -6,18 +6,15 @@ public class UserResponseDto {
 
     public UserResponseDto(){}
 
-    UserResponseDto(User user){
+    public UserResponseDto(User user){
         this.id = user.getId();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
+        this.name = user.getName();
         this.pointsBalance = user.getPointsBalance();
     }
 
     private long id;
 
-    private String firstName;
-
-    private String lastName;
+    private String name;
 
     private long pointsBalance;
 
@@ -29,21 +26,9 @@ public class UserResponseDto {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    public void setName(String name){this.name = name;}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    public String getName(){return this.name;}
 
     public long getPointsBalance() {
         return pointsBalance;

@@ -7,7 +7,7 @@ public class UserItemResponseDto {
 
     public UserItemResponseDto(Item item){
         this.user = new UserResponseDto(item.getUser());
-        this.item = new ItemResponseDto(item);
+
     }
 
     private UserResponseDto user;

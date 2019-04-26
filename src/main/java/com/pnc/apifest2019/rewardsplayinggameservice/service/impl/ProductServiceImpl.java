@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +31,8 @@ public class ProductServiceImpl implements ProductService {
         ProductResponseDto productResponseDto = new ProductResponseDto();
 
         //create new product if the product name does not already exist
-        if (isValidProduct(productDto.getName())) {
+
+       if (isValidProduct(productDto.getName())) {
             //Create product and save basic information
             Product product = new Product();
             product.init(productDto);
@@ -39,7 +41,6 @@ public class ProductServiceImpl implements ProductService {
             List<TransactionEarnRate> transactionEarnRates = productDto.getTransactionEarnRates()
                     .stream()
                     .map(ter -> {
-                                //TODO: add check to make sure a TER isnt added for a tier that the Product does not have
                                 TransactionEarnRate transactionEarnRate = new TransactionEarnRate();
                                 transactionEarnRate.init(ter);
                                 transactionEarnRate.setProduct(product);
@@ -65,9 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
             productResponseDto.setId(savedProduct.getId());
             productResponseDto.setName(savedProduct.getName());
-            productResponseDto.setProductCatagory(savedProduct.getProductCatagory());
         }else{
-            //TODO: provide better error message, move error message to validate method
             //return error if product name is already used
             throw new RuntimeException();
         }
@@ -89,7 +88,16 @@ public class ProductServiceImpl implements ProductService {
 
     //TODO: change to validate method that throws exception
     private boolean isValidProduct(String name){
-        return !productRepository.findByName(name).isPresent();
+       return !productRepository.findByName(name).isPresent();
+    }
+
+    public Product validateAndGetProduct(String name){
+      Optional<Product> product = productRepository.findByName(name);
+      if(product.isPresent()){
+        return product.get();
+      } else{
+        throw new RuntimeException();
+      }
     }
 
 }

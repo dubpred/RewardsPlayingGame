@@ -27,17 +27,20 @@ public class Transaction {
     @Column(name = "amount") //TODO: determine if this should be not null with default value
     private BigDecimal amount;
 
+    @Column(name = "vendor")
+    private String vendor;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "posted_date")
     private Date postedDate;
 
     //------------------------------------------- Mappings -------------------------------------------------------------
-    //Many transactions can have one item
+    //Many transactions can have one user
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "item_id", referencedColumnName = "id")
-    private Item item;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
     //------------------------------------------- End of Mappings -------------------------------------------------------
 
     public void init(TransactionDto transactionDto){
@@ -69,13 +72,13 @@ public class Transaction {
         this.postedDate = createdDate;
     }
 
-    public Item getItem() {
-        return item;
-    }
+   // public User getUser() {
+     //   return user;
+    //}
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
+    //public void setUser(User user) {
+      //  this.user = user;
+    //}
 
     public TransactionEarnRate.TransactionCatagory getTransactionCatagory() {
         return transactionCatagory;
@@ -83,5 +86,21 @@ public class Transaction {
 
     public void setTransactionCatagory(TransactionEarnRate.TransactionCatagory transactionCatagory) {
         this.transactionCatagory = transactionCatagory;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public Date getPostedDate() {
+        return postedDate;
+    }
+
+    public void setPostedDate(Date postedDate) {
+        this.postedDate = postedDate;
     }
 }

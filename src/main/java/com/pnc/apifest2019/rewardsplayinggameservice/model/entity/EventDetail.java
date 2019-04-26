@@ -5,6 +5,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -21,11 +22,20 @@ public class EventDetail {
     private String name;
 
     @NotNull
-    @Column(name = "xp_earn_amount")
-    private long xpEarnAmount;
+    @Column(name = "point_earn_amount")
+    private long pointEarnAmount;
 
+    @NotNull
     @Column(name = "occurance_trigger")
     private long occuranceTrigger;
+
+    @NotNull
+    @Column(name = "time_limit")
+    private long timeLimit;
+
+    @NotNull
+    @Column(name = "transaction_total")
+    private BigDecimal transactionTotal;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -52,8 +62,10 @@ public class EventDetail {
 
     public void init(EventDetailDto eventDetailDto){
         this.name = eventDetailDto.getName();
-        this.xpEarnAmount = eventDetailDto.getXpEarnAmount();
+        this.pointEarnAmount = eventDetailDto.getPointEarnAmount();
         this.occuranceTrigger = eventDetailDto.getOccuranceTrigger();
+        this.timeLimit = eventDetailDto.getTimeLimit();
+        this.transactionTotal = eventDetailDto.getTransactionTotal();
     }
 
     public long getId() {
@@ -73,11 +85,11 @@ public class EventDetail {
     }
 
     public long getXpEarnAmount() {
-        return xpEarnAmount;
+        return pointEarnAmount;
     }
 
     public void setXpEarnAmount(long xpEarnAmount) {
-        this.xpEarnAmount = xpEarnAmount;
+        this.pointEarnAmount = xpEarnAmount;
     }
 
     public long getOccuranceTrigger() {
@@ -111,4 +123,28 @@ public class EventDetail {
     public List<XpEvent> getXpEvents() { return xpEvents; }
 
     public void setXpEvents(List<XpEvent> xpEvents) { this.xpEvents = xpEvents; }
+
+    public long getPointEarnAmount() {
+        return pointEarnAmount;
+    }
+
+    public void setPointEarnAmount(long pointEarnAmount) {
+        this.pointEarnAmount = pointEarnAmount;
+    }
+
+    public long getTimeLimit() {
+        return timeLimit;
+    }
+
+    public void setTimeLimit(long timeLimit) {
+        this.timeLimit = timeLimit;
+    }
+
+    public BigDecimal getTransactionTotal() {
+        return transactionTotal;
+    }
+
+    public void setTransactionTotal(BigDecimal transactionTotal) {
+        this.transactionTotal = transactionTotal;
+    }
 }

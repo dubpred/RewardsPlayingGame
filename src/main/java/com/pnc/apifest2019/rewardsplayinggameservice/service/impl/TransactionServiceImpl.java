@@ -51,33 +51,24 @@ public class TransactionServiceImpl implements TransactionService {
         Item item = itemService.validateAndGetItem(itemId);
 
         //Get all the TERs for the item's product
+        /*
         List<TransactionEarnRate> transactionEarnRatesForProduct = transactionEarnRateRepository.findTransactionEarnRatesByProductId(item.getProduct().getId());
-
+*/
         //Get all the transaction earn rates of the item's product
         //TODO: add a "validate and get" TER method
-        Optional<TransactionEarnRate> transactionEarnRate = transactionEarnRatesForProduct
-                .stream()
-                .filter(ter -> ter.getTier() == item.getTier() //Match the tier of the item with the tier of the TER and
-                        && ter.getTransactionCatagory() == transactionDto.getTransactionCatagory()) //match the TC of the TER and the TC of the posted transaction
-                .findFirst();
 
         //set the User's new point balance based on the transaction
         //TODO: fix warning
-        item.getUser().setPointsBalance(calculateNewBalance(
-                transactionDto.getAmount(),
-                transactionEarnRate.get().getPointEarnRate(),
-                item.getUser().getPointsBalance()));
 
-        //set the Item's new Xp Balance
-        item.setXpBalance(calculateNewBalance(
-                transactionDto.getAmount(),
-                transactionEarnRate.get().getXpEarnRate(),
-                item.getXpBalance()));
+        //calculate if Level Up
+ //       if(checkForLevelUp(item.getXpBalance(), item.getTier(), item.getProduct().getNumberOfTiers(), item.getProduct().getXpTierFormula()))
+
+
 
         //save the Transaction
         Transaction transaction = new Transaction();
         transaction.init(transactionDto);
-        transaction.setItem(item);
+
         transactionRepository.saveAndFlush(transaction);
 
         //respond with the User-Item details
@@ -90,15 +81,13 @@ public class TransactionServiceImpl implements TransactionService {
         Item item = itemService.validateAndGetItem(itemId);
 
         //get the event detail or throw an exception if it doesn't exist
-        EventDetail eventDetail = validateAndGetEventDetail(eventDto.getName(), item.getProduct().getId());
+        //EventDetail eventDetail = validateAndGetEventDetail(eventDto.getName(), item.getProduct().getId());
 
         //set new XP Balance
-        item.setXpBalance(item.getXpBalance() + eventDetail.getXpEarnAmount());
 
         //save new XP Event
         XpEvent xpEvent = new XpEvent();
-        xpEvent.setItem(item);
-        xpEvent.setEventDetail(eventDetail);
+        //xpEvent.setEventDetail(eventDetail);
         xpEventRepository.saveAndFlush(xpEvent);
 
         return new UserItemResponseDto(item);
@@ -111,7 +100,7 @@ public class TransactionServiceImpl implements TransactionService {
         long earnedAmount = earnRate.longValue() * transactionAmount.longValue();
         return oldBalance + earnedAmount;
     }
-
+/*
     private EventDetail validateAndGetEventDetail(String name, long productId) {
         Optional<EventDetail> eventDetail = eventDetailRepository.findByNameAndProductId(name, productId);
         if (eventDetail.isPresent()) {
@@ -120,7 +109,7 @@ public class TransactionServiceImpl implements TransactionService {
             throw new RuntimeException();
         }
     }
-
+*/
     private boolean checkForLevelUp(int currentXp, int currentTier, int maxTier, String xpTierFormula){
         List<Integer> xpToLvlList = new ArrayList<Integer>();
 

@@ -22,7 +22,6 @@ public class ItemServiceImpl implements ItemService {
 
     public Item createItemForNewUser(Product product, User user) {
         Item item = new Item();
-        item.init();
         item.setProduct(product);
         item.setUser(user);
         return item;

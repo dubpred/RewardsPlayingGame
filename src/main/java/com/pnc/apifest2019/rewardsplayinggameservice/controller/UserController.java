@@ -1,6 +1,6 @@
 package com.pnc.apifest2019.rewardsplayinggameservice.controller;
 
-import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.UserDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.CreateUserDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +28,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(
-            @RequestBody UserDto userDto,
-            @RequestParam long productId){
-        System.out.println(productId);
-        return ResponseEntity.ok(userService.createUser(userDto, productId));
+    public ResponseEntity<UserResponseDto> createUser (@RequestBody CreateUserDto createUserDto){
+        return ResponseEntity.ok(userService.createUser(createUserDto));
     }
 }

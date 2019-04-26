@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface TransactionEarnRateRepository extends JpaRepository<TransactionEarnRate, Long> {
 
-    List<TransactionEarnRate> findTransactionEarnRatesByProductId(long productId);
+    //List<TransactionEarnRate> findTransactionEarnRatesByProductId(long productId);
 
 }

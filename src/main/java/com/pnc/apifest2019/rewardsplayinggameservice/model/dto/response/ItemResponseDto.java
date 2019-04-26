@@ -2,27 +2,19 @@ package com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response;
 
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Item;
 
-public class ItemResponseDto {
+import java.util.List;
 
-    private long id;
+public class ItemResponseDto {
 
     private long tier;
 
     private long xpBalance;
 
-    ItemResponseDto(Item item){
-        this.id = item.getId();
-        this.tier = item.getTier();
-        this.xpBalance = item.getXpBalance();
-    }
+    private List<TransactionResponseDto> transactions;
 
-    public long getId() {
-        return id;
-    }
+    private List<EventResponseDto> events;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+
 
     public long getTier() {
         return tier;
@@ -38,5 +30,21 @@ public class ItemResponseDto {
 
     public void setXpBalance(long xpBalance) {
         this.xpBalance = xpBalance;
+    }
+
+    public List<TransactionResponseDto> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<TransactionResponseDto> transactions) {
+        this.transactions = transactions;
+    }
+
+    public List<EventResponseDto> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<EventResponseDto> events) {
+        this.events = events;
     }
 }

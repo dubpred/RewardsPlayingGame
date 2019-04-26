@@ -18,14 +18,6 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
-    @Column(name = "tier")
-    private long tier;
-
-    @NotNull
-    @Column(name = "xp_balance")
-    private long xpBalance;
-
     @CreationTimestamp
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "created_date")
@@ -49,19 +41,9 @@ public class Item {
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
-    //One item can have many transactions
-    @OneToMany(mappedBy = "item")
-    private List<Transaction> transactions;
 
-    //One item can have many xp_events
-    @OneToMany(mappedBy = "item")
-    private List<XpEvent> xpEvents;
     //------------------------------------------- End of Mappings -------------------------------------------------------
 
-    public void init(){
-        this.tier = 0;
-        this.xpBalance = 0;
-    }
 
     public long getId() {
         return id;
@@ -69,14 +51,6 @@ public class Item {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getTier() {
-        return tier;
-    }
-
-    public void setTier(long tier) {
-        this.tier = tier;
     }
 
     public Date getCreatedDate() {
@@ -111,27 +85,6 @@ public class Item {
         this.user = user;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
 
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
 
-    public List<XpEvent> getXpEvents() {
-        return xpEvents;
-    }
-
-    public void setXpEvents(List<XpEvent> xpEvents) {
-        this.xpEvents = xpEvents;
-    }
-
-    public long getXpBalance() {
-        return xpBalance;
-    }
-
-    public void setXpBalance(long xpBalance) {
-        this.xpBalance = xpBalance;
-    }
 }
