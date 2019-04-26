@@ -121,7 +121,7 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private boolean checkForLevelUp(int currentXp, int currentTier /*,int maxTier, String xpTierFormula*/){
+    private boolean checkForLevelUp(long currentXp, long currentTier /*,int maxTier, String xpTierFormula*/){
         List<Long> xpToLvlList = new ArrayList<Long>();
 
         xpToLvlList.add((long)1000);
@@ -131,9 +131,9 @@ public class TransactionServiceImpl implements TransactionService {
         xpToLvlList.add((long)5000);
 
         //lower bound of current level
-        long lower = xpToLvlList.get(currentTier);
+        long lower = xpToLvlList.get((int)currentTier);
         //upper bound of current level
-        long upper = xpToLvlList.get(currentTier +1);
+        long upper = xpToLvlList.get((int)currentTier +1);
 
 //        //depending on leveling Algorithm
 //            switch (xpTierFormula){
