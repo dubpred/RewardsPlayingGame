@@ -3,6 +3,7 @@ package com.pnc.apifest2019.rewardsplayinggameservice.service.impl;
 import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.ProductRepository;
 import com.pnc.apifest2019.rewardsplayinggameservice.intregration.jpa.UserRepository;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.request.CreateUserDto;
+import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.DemoResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.dto.response.UserResponseDto;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Item;
 import com.pnc.apifest2019.rewardsplayinggameservice.model.entity.Product;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final ProductRepository productRepository;
     private final ItemService itemService;
     private final ProductService productService;
+
 
     @Autowired
     public UserServiceImpl(final UserRepository userRepository,
@@ -75,6 +77,17 @@ public class UserServiceImpl implements UserService {
         }else{
             throw new RuntimeException();
         }
+    }
+
+    @Override
+    public DemoResponseDto getDemo(long userId) {
+        User user = validateAndGetUser(userId);
+        DemoResponseDto demoResponseDto = new DemoResponseDto();
+
+        demoResponseDto.setName(user.getName());
+        demoResponseDto.setTier(user.getTier());
+        demoResponseDto.setPointToNextLevel(TransactionServiceImpl.getPointsToNextTier(user.getPointsBalance(), user.getTier()));
+        return null;
     }
 
 
