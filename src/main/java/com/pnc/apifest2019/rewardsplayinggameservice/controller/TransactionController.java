@@ -33,11 +33,14 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.postTransaction(transactionDto));
     }
 
+    /*
     @PostMapping(value = "/event")
     public ResponseEntity<UserItemResponseDto> postEvent(@RequestBody @Valid EventDto eventDto,
                                                          @RequestParam long itemId){
         return ResponseEntity.ok(transactionService.postEvent(itemId, eventDto));
     }
+    */
+
 
 
 }
