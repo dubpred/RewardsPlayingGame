@@ -18,7 +18,6 @@ public class ProductDto {
     @NotNull
     private List<TransactionEarnRateDto> transactionEarnRates;
 
-    private List<EventDetailDto> eventDetails;
 
     public String getName() {
         return name;
@@ -36,11 +35,4 @@ public class ProductDto {
         this.transactionEarnRates = transactionEarnRates;
     }
 
-    public List<EventDetailDto> getEventDetails() {
-        return eventDetails;
-    }
-
-    public void setEventDetails(List<EventDetailDto> eventDetails) {
-        this.eventDetails = eventDetails;
-    }
 }
